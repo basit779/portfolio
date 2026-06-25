@@ -7,8 +7,9 @@ import Decode from "./Decode";
 const EMAIL = "basitraja334411@gmail.com";
 
 const LINKS = [
-  { label: "GitHub", handle: "@basit779", href: "https://github.com/basit779" },
-  { label: "Email",  handle: EMAIL,       href: `mailto:${EMAIL}` },
+  { label: "GitHub",   handle: "@basit779", href: "https://github.com/basit779" },
+  { label: "LinkedIn", handle: "basit-py",  href: "https://www.linkedin.com/in/basit-py-b940053aa/" },
+  { label: "Email",    handle: EMAIL,       href: `mailto:${EMAIL}` },
 ];
 
 export default function Contact() {
@@ -52,7 +53,7 @@ export default function Contact() {
             </Magnetic>
           </div>
 
-          <div className="relative grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2">
+          <div className="relative grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-3">
             {LINKS.map((l) => (
               <a
                 key={l.label}

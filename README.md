@@ -49,12 +49,9 @@ components/
   Magnetic.tsx          cursor-magnetic buttons
 ```
 
-## Before you share it — two manual to-dos
+## Optional polish
 
-1. **LinkedIn** — a real link wasn't available, so the LinkedIn entry was removed
-   rather than ship a broken one. Add yours back in `components/Contact.tsx`
-   (`LINKS` array).
-2. **StudySnap repo name** — the "Source" link points to
-   `github.com/basit779/NotesSummarizer`. Optionally rename that repo to
-   `StudySnap` on GitHub (it auto-redirects) and update the URL in
-   `components/Projects.tsx` so the brand and repo match.
+- **StudySnap repo name** — the "Source" link points to
+  `github.com/basit779/NotesSummarizer`. Optionally rename that repo to
+  `StudySnap` on GitHub (it auto-redirects) and update the URL in
+  `components/Projects.tsx` so the brand and repo match.

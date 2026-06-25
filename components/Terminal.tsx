@@ -30,6 +30,7 @@ const STACK: Record<string, string[]> = {
 
 const EMAIL = "basitraja334411@gmail.com";
 const GITHUB = "https://github.com/basit779";
+const LINKEDIN = "https://www.linkedin.com/in/basit-py-b940053aa/";
 
 /* ── render helpers ────────────────────────────────────────────── */
 function A({ href, children }: { href: string; children: ReactNode }) {
@@ -181,6 +182,7 @@ const COMMANDS: Record<string, Cmd> = {
       <div className="text-t2">
         <div>email · <A href={`mailto:${EMAIL}`}>{EMAIL}</A></div>
         <div>github · <A href={GITHUB}>@basit779</A></div>
+        <div>linkedin · <A href={LINKEDIN}>in/basit-py</A></div>
       </div>
     ),
   },
