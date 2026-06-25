@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-inter: "Inter", system-ui, sans-serif;
+  --font-mono:  "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+  --bg: #07070A;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: #F4F4F6;
+  font-family: var(--font-inter);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(62, 207, 142, 0.28);
+  color: #ffffff;
+}
+
+/* custom cursor is active → hide the native one (fine-pointer devices only) */
+.hide-cursor,
+.hide-cursor * {
+  cursor: none !important;
+}
+
+/* visible keyboard focus ring (mouse clicks stay clean via :focus-visible) */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #3ECF8E;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* keep gradient text legible in Windows High Contrast / forced-colors mode */
+@media (forced-colors: active) {
+  .text-gradient,
+  .text-accent-gradient {
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: CanvasText;
+  }
+}
+
+/* ── custom scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #07070A; }
+::-webkit-scrollbar-thumb {
+  background: #1c1c24;
+  border-radius: 99px;
+  border: 2px solid #07070A;
+}
+::-webkit-scrollbar-thumb:hover { background: #2a2a36; }
+
+/* ── pulsing "available" dot ───────────────────────────────────── */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(62, 207, 142, 0.5); }
+  50%       { opacity: 0.55; box-shadow: 0 0 0 6px rgba(62, 207, 142, 0); }
+}
+.pulse-dot { animation: pulse-dot 2.6s ease-in-out infinite; }
+
+/* keyframes for classes that use raw CSS animations (Tailwind only emits its
+   own keyframes when the matching animate-* utility is present in markup) */
+@keyframes blink {
+  0%, 49%  { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+@keyframes shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+/* ── gradient / shimmering text ────────────────────────────────── */
+.text-gradient {
+  background: linear-gradient(
+    100deg,
+    #F4F4F6 0%,
+    #3ECF8E 28%, #22D3EE 45%, #8B5CF6 62%,
+    #F4F4F6 92%
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 7s linear infinite;
+}
+
+.text-accent-gradient {
+  background: linear-gradient(100deg, #3ECF8E, #22D3EE 60%, #8B5CF6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── grain / noise overlay ─────────────────────────────────────── */
+.noise::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── perspective grid floor ────────────────────────────────────── */
+.grid-floor {
+  background-image:
+    linear-gradient(to right, rgba(62,207,142,0.10) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(62,207,142,0.10) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 10%, transparent 72%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 10%, transparent 72%);
+}
+
+/* ── glass surface ─────────────────────────────────────────────── */
+.glass {
+  background: rgba(14, 14, 18, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* ── terminal blinking caret ───────────────────────────────────── */
+.caret {
+  display: inline-block;
+  width: 9px;
+  height: 1.05em;
+  margin-left: 2px;
+  transform: translateY(2px);
+  background: #3ECF8E;
+  animation: blink 1.05s step-end infinite;
+}
+
+/* ── animated conic border (for featured cards) ────────────────── */
+.conic-border {
+  position: relative;
+  isolation: isolate;
+}
+.conic-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--angle, 0deg),
+    transparent 0%, transparent 70%,
+    #3ECF8E 82%, #22D3EE 90%, transparent 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+}
+.conic-border:hover::before { opacity: 1; }
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes spin-angle { to { --angle: 360deg; } }
+@media (hover: hover) and (pointer: fine) {
+  .conic-border:hover { animation: spin-angle 4s linear infinite; }
+}
+
+/* ── pipeline flowing connector segments ───────────────────────── */
+@keyframes flow-x {
+  0%   { transform: translateX(-130%); }
+  100% { transform: translateX(430%); }
+}
+@keyframes flow-y {
+  0%   { transform: translateY(-130%); }
+  100% { transform: translateY(430%); }
+}
+.flow-x-seg { animation: flow-x 2.6s linear infinite; }
+.flow-y-seg { animation: flow-y 2.6s linear infinite; }
+
+/* ── reduce motion ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
